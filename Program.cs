@@ -13,6 +13,7 @@ static class Program
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
 
+        
         // Ejecutar el formulario principal
         Application.Run(new MainForm());
     }

@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
 using MiniCompiler.LexicalAnalysis;
-using MiniCompiler.SintaxAnalysis;
+using MiniCompiler.SyntaxAnalysis;
 
 namespace MiniCompiler;
 
@@ -19,7 +19,10 @@ public partial class MainForm : Form
         // Run the lexer
         var lexer = new Lexer(sourceCode);
         var tokens = lexer.Tokenize();
-
+        foreach (var token in tokens)
+        {
+            Console.WriteLine(token);
+        }
         // Run the parser
         var parser = new Parser(tokens);
         Node ast;
@@ -34,7 +37,7 @@ public partial class MainForm : Form
         }
 
         // Display the AST
-        var traverser = new ASTTraverse();
+        var traverser = new AstTraverse();
         string travesalResult = traverser.Traverse(ast);
         txtAST.Text = travesalResult;
     }

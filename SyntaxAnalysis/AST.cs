@@ -1,4 +1,5 @@
-﻿namespace MiniCompiler.SintaxAnalysis;
+﻿
+namespace MiniCompiler.SyntaxAnalysis;
 
 public abstract class Node { }
 
@@ -142,5 +143,15 @@ public class ForNode : Node
         Condition = condition;
         Increment = increment;
         Body = body;
+    }
+}
+
+public class ReturnNode : Node
+{
+    public Node Expression { get; }
+
+    public ReturnNode(Node expression)
+    {
+        Expression = expression;
     }
 }

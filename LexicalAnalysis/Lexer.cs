@@ -7,7 +7,7 @@ public class Lexer(string sourceCode)
 {
     private int _position;
     private int _line = 1;
-    private int _column = 1; 
+    private int _column = 1;
     private static readonly Dictionary<string, TokenType> Keywords = new Dictionary<string, TokenType>()
     {
         { "if", TokenType.If },
@@ -104,7 +104,7 @@ public class Lexer(string sourceCode)
             {
                 tokens.Add(ReadComment());
             }
-            else if("{};=+-*/&|!<>,.".Contains(current))
+            else if(Operators.ContainsKey(current.ToString()))
             {
                 tokens.Add(ReadSymbol());
             }

@@ -1,16 +1,16 @@
 ﻿using System.Text;
 
-namespace MiniCompiler.SintaxAnalysis;
+namespace MiniCompiler.SyntaxAnalysis;
 
-public class ASTTraverse
+public class AstTraverse
 {
-    private readonly StringBuilder Output = new StringBuilder();
+    private readonly StringBuilder _output = new StringBuilder();
     public string Traverse(Node node)
     {
         switch (node)
         {
             case ProgramNode programNode:
-                Output.AppendLine("Program:");
+                _output.AppendLine("Program:");
                 foreach (Node statement in programNode.Statements)
                 {
                     Traverse(statement);
@@ -18,7 +18,7 @@ public class ASTTraverse
                 break;
             
             case ClassNode classNode:
-                Output.AppendLine($"Class: {classNode.Name}");
+                _output.AppendLine($"Class: {classNode.Name}");
                 foreach (Node member in classNode.Body)
                 {
                     Traverse(member);
@@ -26,7 +26,7 @@ public class ASTTraverse
                 break;
             
             case VariableDeclarationNode variableNode:
-                Output.AppendLine($"Varibale Declaration: {variableNode.Name} ");
+                _output.AppendLine($"Varibale Declaration: {variableNode.Name} ");
                 if (variableNode.Initializer != null)
                 {
                     Traverse(variableNode.Initializer);
@@ -34,25 +34,25 @@ public class ASTTraverse
                 break;
             
             case BinaryOperationNode binaryNode:
-                Output.AppendLine($"Binary Operation {binaryNode.Operator}");
+                _output.AppendLine($"Binary Operation {binaryNode.Operator}");
                 Traverse(binaryNode.Left);
                 Traverse(binaryNode.Right);
                 break;
             
             case LiteralNode literalNode:
-                Output.AppendLine($"Literal: {literalNode.Value}");
+                _output.AppendLine($"Literal: {literalNode.Value}");
                 break;
             
             case ExpressionNode expressionNode:
-                Output.AppendLine($"Expression: {expressionNode.Value}");
+                _output.AppendLine($"Expression: {expressionNode.Value}");
                 break;
             
             case AssignmentNode assignmentNode:
-                Output.AppendLine($"Assignment: {assignmentNode.VariableName}");
+                _output.AppendLine($"Assignment: {assignmentNode.VariableName}");
                 break;
             
             case FunctionCallNode functionCallNode:
-                Output.AppendLine($"Function Call: {functionCallNode.FunctionName}");
+                _output.AppendLine($"Function Call: {functionCallNode.FunctionName}");
                 foreach (Node arguments in functionCallNode.Arguments)
                 {
                     Traverse(arguments);
@@ -60,18 +60,18 @@ public class ASTTraverse
                 break;
             
             case IfNode ifNode:
-                Output.AppendLine($"If statement");
+                _output.AppendLine($"If statement");
                 Traverse(ifNode.Condition);
                 Traverse(ifNode.Body);
                 break;
             
             case WhileNode whileNode:
-                Output.AppendLine($"While loop");
+                _output.AppendLine($"While loop");
                 Traverse(whileNode.Condition);
                 Traverse(whileNode.Body);
                 break;
             case BlockNode blockNode:
-                Output.AppendLine("Block:");
+                _output.AppendLine("Block:");
                 foreach (Node statements in blockNode.Statements)
                 {
                     Traverse(statements);
@@ -83,6 +83,6 @@ public class ASTTraverse
                 throw new Exception($"Unknown Node Type: {node.GetType().Name}");
         }
 
-        return Output.ToString();
+        return _output.ToString();
     }
 }
